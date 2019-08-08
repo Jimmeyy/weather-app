@@ -24,7 +24,6 @@ class Root extends Component {
   };
 
   async componentDidMount() {
-    convertDateFormat(new Date());
     try {
       const response = await axios.get('https://dev-weather-api.azurewebsites.net/api/city');
       const dataCities = [...response.data];
