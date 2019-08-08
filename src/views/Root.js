@@ -26,7 +26,7 @@ class Root extends Component {
   async componentDidMount() {
     convertDateFormat(new Date());
     try {
-      const response = await axios.get('http://dev-weather-api.azurewebsites.net/api/city');
+      const response = await axios.get('https://dev-weather-api.azurewebsites.net/api/city');
       const dataCities = [...response.data];
 
       const id = dataCities.length ? dataCities[0].id : null;
@@ -45,7 +45,7 @@ class Root extends Component {
   }
 
   fetchData = async id => {
-    const response = await axios.get(`http://dev-weather-api.azurewebsites.net/api/city/${id}/weather`, {
+    const response = await axios.get(`https://dev-weather-api.azurewebsites.net/api/city/${id}/weather`, {
       params: {
         date: convertDateFormat(new Date()),
       },
