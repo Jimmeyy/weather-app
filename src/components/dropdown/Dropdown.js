@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import arrowDownIcon from '../../assets/icons/arrow-down.png';
 
 const DropdownCities = styled.select`
@@ -29,14 +30,25 @@ const DropdownCities = styled.select`
   }
 `;
 
-const Dropdown = () => {
+const Dropdown = ({ cities, onChange }) => {
   return (
-    <DropdownCities>
-      <option value="1">Warsaw</option>
-      <option value="2">Cracov</option>
-      <option value="3">Silesia</option>
+    <DropdownCities onChange={onChange}>
+      {cities.map(city => (
+        <option key={city.id} value={city.id}>
+          {city.name}
+        </option>
+      ))}
     </DropdownCities>
   );
+};
+
+Dropdown.propTypes = {
+  cities: PropTypes.arrayOf(PropTypes.object),
+  onChange: PropTypes.func.isRequired,
+};
+
+Dropdown.defaultProps = {
+  cities: [],
 };
 
 export default Dropdown;

@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Dropdown from '../dropdown/Dropdown';
 import SingleDay from '../singleDay/SingleDay';
-import iconSunny from '../../assets/icons/sunny.png';
+import { dayNames, monthNames, weatherIcons, celsiusToFarenheit, getDaySufix } from '../../helpers/helpers';
 
 const WeatherWidgetWrapper = styled.div`
   flex-basis: 100%;
@@ -29,10 +30,18 @@ const Temperature = styled.div`
     width: 75px;
   }
 
-  span {
+  h5 {
     padding-left: 10px;
     font-size: 45px;
     font-weight: 700;
+
+    span {
+      display: inline-block;
+      color: #aaaaaa;
+      font-size: 20px;
+      font-weight: 400;
+      transform: translateY(-75%);
+    }
   }
 `;
 
@@ -89,49 +98,66 @@ const SubHeading = styled.p`
   }
 `;
 
-const WeatherWidget = () => {
+const WeatherWidget = ({ cities, onChange, activeCity }) => {
+  const currentDay = activeCity.length > 0 ? activeCity[0] : null;
+
   return (
-    <WeatherWidgetWrapper>
-      <DropdownWrapper>
-        <Dropdown />
-      </DropdownWrapper>
-      <SubHeading>Tuesday, April 15th</SubHeading>
-      <SubHeading>Overcast</SubHeading>
-      <InnerWrapper>
-        <Column>
-          <Temperature>
-            <img src={iconSunny} alt="weather-icon" />
-            <span>58&deg;</span>
-          </Temperature>
-        </Column>
-        <Column>
-          <MoreInfo>
-            <li>
-              Precipitation: <span>100%</span>
-            </li>
-            <li>
-              Humidity: <span>97%</span>
-            </li>
-            <li>
-              Wind: <span>4 mph SW</span>
-            </li>
-            <li>
-              Pollen Count: <span>36</span>
-            </li>
-          </MoreInfo>
-        </Column>
-      </InnerWrapper>
-      <DaysWrapper>
-        <SingleDay />
-        <SingleDay />
-        <SingleDay />
-        <SingleDay />
-        <SingleDay />
-        <SingleDay />
-        <SingleDay />
-      </DaysWrapper>
-    </WeatherWidgetWrapper>
+    currentDay && (
+      <WeatherWidgetWrapper>
+        <DropdownWrapper>
+          <Dropdown cities={cities} onChange={onChange} />
+        </DropdownWrapper>
+        <SubHeading>
+          {dayNames[new Date(currentDay.date).getDay()]}, {monthNames[new Date(currentDay.date).getMonth()]} {new Date(currentDay.date).getDate()}
+          {getDaySufix(new Date(currentDay.date).getDate())}
+        </SubHeading>
+        <SubHeading>{currentDay.type.split(/(?=[A-Z])/).join(' ')}</SubHeading>
+        <InnerWrapper>
+          <Column>
+            <Temperature>
+              <img src={weatherIcons[currentDay.type]} alt="weather-icon" />
+              <h5>
+                {celsiusToFarenheit(currentDay.temperature)}
+                <span>&deg;F</span>
+              </h5>
+            </Temperature>
+          </Column>
+          <Column>
+            <MoreInfo>
+              <li>
+                Precipitation: <span>{currentDay.precipitation}%</span>
+              </li>
+              <li>
+                Humidity: <span>{currentDay.humidity}%</span>
+              </li>
+              <li>
+                Wind: <span>{`${currentDay.windInfo.speed} mph ${currentDay.windInfo.direction}`}</span>
+              </li>
+              <li>
+                Pollen Count: <span>{currentDay.pollenCount}</span>
+              </li>
+            </MoreInfo>
+          </Column>
+        </InnerWrapper>
+        <DaysWrapper>
+          {activeCity.map(day => (
+            <SingleDay key={day.date} day={day} />
+          ))}
+        </DaysWrapper>
+      </WeatherWidgetWrapper>
+    )
   );
+};
+
+WeatherWidget.propTypes = {
+  cities: PropTypes.arrayOf(PropTypes.object),
+  onChange: PropTypes.func.isRequired,
+  activeCity: PropTypes.arrayOf(PropTypes.object),
+};
+
+WeatherWidget.defaultProps = {
+  cities: [],
+  activeCity: [],
 };
 
 export default WeatherWidget;

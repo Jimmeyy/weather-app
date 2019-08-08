@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import iconCloudy from '../../assets/icons/cloudy.png';
+import { weatherIcons, celsiusToFarenheit, dayNames, convertDateFormat } from '../../helpers/helpers';
 
 const SingleDayWrapper = styled.div`
   display: flex;
@@ -45,19 +46,27 @@ const SingleDayWrapper = styled.div`
   }
 `;
 
-const SingleDay = () => {
+const SingleDay = ({ day }) => {
   return (
     <SingleDayWrapper>
-      <h4>Today</h4>
-      <img src={iconCloudy} alt="weather-icon" />
+      <h4>{convertDateFormat(new Date()) === convertDateFormat(new Date(day.date)) ? 'Today' : dayNames[new Date(day.date).getDay()]}</h4>
+      <img src={weatherIcons[day.type]} alt="weather-icon" />
       <p>
-        68&deg; <span>36&deg;</span>
+        {celsiusToFarenheit(day.temperature)}&deg; <span>{day.temperature}&deg;</span>
       </p>
       <p>
-        Pollen <span>36</span>
+        Pollen: <span>{day.pollenCount}</span>
       </p>
     </SingleDayWrapper>
   );
+};
+
+SingleDay.propTypes = {
+  day: PropTypes.objectOf(PropTypes.any),
+};
+
+SingleDay.defaultProps = {
+  day: {},
 };
 
 export default SingleDay;
