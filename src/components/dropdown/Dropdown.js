@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import arrowDownIcon from '../../assets/icons/arrow-down.png';
 
 const DropdownCities = styled.select`
-  padding: 0 60px 0 10px;
+  padding: 0 30px 0 10px;
   border: 2px solid ${({ theme }) => theme.colors.veryLightGrey};
-  font-size: 30px;
+  font-size: 26px;
   text-transform: uppercase;
   font-weight: 700;
   font-family: 'Open sans', sans-serif;
-  background: url(${arrowDownIcon}) no-repeat right 20px center / 18px;
+  background: url(${arrowDownIcon}) no-repeat right 10px center / 12px;
   border-radius: 10px;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -18,7 +18,9 @@ const DropdownCities = styled.select`
 
   @media (min-width: 768px) {
     padding: 5px 60px 5px 20px;
-    font-size: 40px;
+    background-position: right 20px center;
+    background-size: 16px;
+    font-size: 38px;
   }
 
   &::-ms-expand {
