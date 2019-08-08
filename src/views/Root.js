@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 import GlobalStyles from '../theme/GlobalStyles';
 import WeatherWidget from '../components/weatherWidget/WeatherWidget';
+import theme from '../theme/Theme';
 import { convertDateFormat } from '../helpers/helpers';
 
 const AppWrapper = styled.div`
@@ -68,10 +69,12 @@ class Root extends Component {
     const { cities, activeCity } = this.state;
 
     return (
-      <AppWrapper>
-        <GlobalStyles />
-        <WeatherWidget cities={cities} onChange={this.handleDropdownChange} activeCity={activeCity.data} />
-      </AppWrapper>
+      <ThemeProvider theme={theme}>
+        <AppWrapper>
+          <GlobalStyles />
+          <WeatherWidget cities={cities} onChange={this.handleDropdownChange} activeCity={activeCity.data} />
+        </AppWrapper>
+      </ThemeProvider>
     );
   }
 }

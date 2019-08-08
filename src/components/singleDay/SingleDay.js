@@ -8,10 +8,10 @@ const SingleDayWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 5px 0;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGrey};
 
   &:first-child {
-    border-top: 1px solid #dddddd;
+    border-top: 1px solid ${({ theme }) => theme.colors.lightGrey};
   }
 
   @media (min-width: 768px) {
@@ -34,7 +34,7 @@ const SingleDayWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     font-size: 18px;
-    color: #333;
+    color: ${({ theme }) => theme.colors.veryDarkGrey};
 
     @media (min-width: 500px) {
       display: inline-block;
@@ -42,7 +42,7 @@ const SingleDayWrapper = styled.div`
   }
 
   span {
-    color: #aaaaaa;
+    color: ${({ theme }) => theme.colors.mediumGrey};
   }
 `;
 

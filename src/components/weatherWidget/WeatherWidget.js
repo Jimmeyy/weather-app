@@ -9,7 +9,7 @@ const WeatherWidgetWrapper = styled.div`
   flex-basis: 100%;
   max-width: 1000px;
   padding: 30px;
-  border: 2px solid #eeeeee;
+  border: 2px solid ${({ theme }) => theme.colors.veryLightGrey};
   box-shadow: 0 5px 10px 0 rgba(33, 33, 33, 0.1);
 `;
 
@@ -37,7 +37,7 @@ const Temperature = styled.div`
 
     span {
       display: inline-block;
-      color: #aaaaaa;
+      color: ${({ theme }) => theme.colors.mediumGrey};
       font-size: 20px;
       font-weight: 400;
       transform: translateY(-75%);
@@ -52,7 +52,7 @@ const MoreInfo = styled.ul`
     text-align: center;
     font-size: 18px;
     line-height: 23px;
-    color: #777777;
+    color: ${({ theme }) => theme.colors.darkGrey};
 
     @media (min-width: 425px) {
       text-align: left;
@@ -90,7 +90,7 @@ const SubHeading = styled.p`
   line-height: 22px;
   font-size: 17px;
   font-weight: 700;
-  color: #777777;
+  color: ${({ theme }) => theme.colors.darkGrey};
 
   @media (min-width: 768px) {
     line-height: 26px;

@@ -5,7 +5,7 @@ import arrowDownIcon from '../../assets/icons/arrow-down.png';
 
 const DropdownCities = styled.select`
   padding: 0 60px 0 10px;
-  border: 2px solid #eeeeee;
+  border: 2px solid ${({ theme }) => theme.colors.veryLightGrey};
   font-size: 30px;
   text-transform: uppercase;
   font-weight: 700;
